@@ -144,7 +144,7 @@ class Game:
                     break
 
                 elif input_.lower() == "Restart".lower():
-                    self.board = self.board = """
+                    self.board = """
         A|    B|    C|    D|    E|    F|    G|
 ===============================================
 1 ||_____|_____|_____|_____|_____|_____|_____|
@@ -170,8 +170,21 @@ class Game:
                         player2_turn = True
                     else:
                         print("You can't place it here")
+
+                elif self.is_tied():
+                    exit = input("Tied. Type 'exit' to exit game")
+                    if exit.lower() == "exit".lower():
+                        playing = False
+                        break
                 else:
                     print("Invalid input")
+
+                print(self.available_positions)
+                if self.is_tied():
+                    exit = input("Tied. Type 'exit' to exit game")
+                    if exit.lower() == "exit".lower():
+                        playing = False
+                        break
             while player2_turn:
                 input_ = input(self.board + "\n Player 2 \n >")
                 if input_.lower() == "View".lower():
@@ -182,7 +195,7 @@ class Game:
                     break
 
                 elif input_.lower() == "Restart".lower():
-                    self.board = self.board = """
+                    self.board = """
         A|    B|    C|    D|    E|    F|    G|
 ===============================================
 1 ||_____|_____|_____|_____|_____|_____|_____|
@@ -201,19 +214,37 @@ class Game:
                             finish = input("Type 'exit' to exit game")
                             if finish.lower() == "Exit".lower():
                                 playing = False
+
+                        else:
+                            if self.is_tied():
+                                exit = input("Tied. Type 'exit' to exit game")
+                                if exit.lower() == "exit".lower():
+                                    playing = False
+                                    break
                         player1_turn = True
                         player2_turn = False
+
+                    elif self.is_tied():
+                        playing = False
+                        break
                     else:
                         print("You can't place it here")
+
                 else:
                     print("Invalid input")
+                print(self.available_positions)
+                if self.is_tied():
+                    exit = input("Tied. Type 'exit' to exit game")
+                    if exit.lower() == "exit".lower():
+                        playing = False
+                        break
 
     def _check_available_positions(self):
         """
         Checks possible coords for player to place and appends to list.
         :return: list
         """
-        available_positions = []
+        self.available_positions = []
         is_column1_empty = True
         is_column2_empty = True
         is_column3_empty = True
@@ -227,11 +258,11 @@ class Game:
             if self.board[pos_value] == "X" or self.board[pos_value] == "O":
                 is_column1_empty = False
         if is_column1_empty:
-            available_positions.append(self.invert_positions_dict[self.column_1[-1]])
+            self.available_positions.append(self.invert_positions_dict[self.column_1[-1]])
         else:
             for pos_value in self.column_1[::-1]:
                 if self.board[pos_value] == "_":
-                    available_positions.append(self.invert_positions_dict[pos_value])
+                    self.available_positions.append(self.invert_positions_dict[pos_value])
                     break
 
         # Check column 2
@@ -239,11 +270,11 @@ class Game:
             if self.board[pos_value] == "X" or self.board[pos_value] == "O":
                 is_column2_empty = False
         if is_column2_empty:
-            available_positions.append(self.invert_positions_dict[self.column_2[-1]])
+            self.available_positions.append(self.invert_positions_dict[self.column_2[-1]])
         else:
             for pos_value in self.column_2[::-1]:
                 if self.board[pos_value] == "_":
-                    available_positions.append(self.invert_positions_dict[pos_value])
+                    self.available_positions.append(self.invert_positions_dict[pos_value])
                     break
 
         # Check column 3
@@ -251,11 +282,11 @@ class Game:
             if self.board[pos_value] == "X" or self.board[pos_value] == "O":
                 is_column3_empty = False
         if is_column3_empty:
-            available_positions.append(self.invert_positions_dict[self.column_3[-1]])
+            self.available_positions.append(self.invert_positions_dict[self.column_3[-1]])
         else:
             for pos_value in self.column_3[::-1]:
                 if self.board[pos_value] == "_":
-                    available_positions.append(self.invert_positions_dict[pos_value])
+                    self.available_positions.append(self.invert_positions_dict[pos_value])
                     break
 
         # Check column 4
@@ -263,11 +294,11 @@ class Game:
             if self.board[pos_value] == "X" or self.board[pos_value] == "O":
                 is_column4_empty = False
         if is_column4_empty:
-            available_positions.append(self.invert_positions_dict[self.column_4[-1]])
+            self.available_positions.append(self.invert_positions_dict[self.column_4[-1]])
         else:
             for pos_value in self.column_4[::-1]:
                 if self.board[pos_value] == "_":
-                    available_positions.append(self.invert_positions_dict[pos_value])
+                    self.available_positions.append(self.invert_positions_dict[pos_value])
                     break
 
         # Check column 5
@@ -275,11 +306,11 @@ class Game:
             if self.board[pos_value] == "X" or self.board[pos_value] == "O":
                 is_column5_empty = False
         if is_column5_empty:
-            available_positions.append(self.invert_positions_dict[self.column_5[-1]])
+            self.available_positions.append(self.invert_positions_dict[self.column_5[-1]])
         else:
             for pos_value in self.column_5[::-1]:
                 if self.board[pos_value] == "_":
-                    available_positions.append(self.invert_positions_dict[pos_value])
+                    self.available_positions.append(self.invert_positions_dict[pos_value])
                     break
 
         # Check column 6
@@ -287,11 +318,11 @@ class Game:
             if self.board[pos_value] == "X" or self.board[pos_value] == "O":
                 is_column6_empty = False
         if is_column6_empty:
-            available_positions.append(self.invert_positions_dict[self.column_6[-1]])
+            self.available_positions.append(self.invert_positions_dict[self.column_6[-1]])
         else:
             for pos_value in self.column_6[::-1]:
                 if self.board[pos_value] == "_":
-                    available_positions.append(self.invert_positions_dict[pos_value])
+                    self.available_positions.append(self.invert_positions_dict[pos_value])
                     break
 
         # Check column 7
@@ -299,14 +330,14 @@ class Game:
             if self.board[pos_value] == "X" or self.board[pos_value] == "O":
                 is_column7_empty = False
         if is_column7_empty:
-            available_positions.append(self.invert_positions_dict[self.column_7[-1]])
+            self.available_positions.append(self.invert_positions_dict[self.column_7[-1]])
         else:
             for pos_value in self.column_7[::-1]:
                 if self.board[pos_value] == "_":
-                    available_positions.append(self.invert_positions_dict[pos_value])
+                    self.available_positions.append(self.invert_positions_dict[pos_value])
                     break
 
-        return available_positions
+        return self.available_positions
 
     def check_available_positions(self):
         """
@@ -496,3 +527,17 @@ class Game:
 
         return connect_four
 
+    def is_tied(self):
+        """
+        Checks if there is a tie. Tie will occur once all slots are filled
+        :return: bool
+        """
+        tied = False
+        empty_count = 0
+        for pos_value in self.positions_dict.values():
+            if self.board[pos_value] == "_":
+                empty_count += 1
+
+        if empty_count == 0:
+            tied = True
+        return tied
