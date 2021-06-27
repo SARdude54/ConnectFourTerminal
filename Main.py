@@ -9,7 +9,6 @@ while isResponding:
     if response.lower() == "Start".lower():
         g = Game()
         g.init_Game()
-        print("The game will begin")
         isResponding = False
 
     elif response.lower() == "Exit".lower():

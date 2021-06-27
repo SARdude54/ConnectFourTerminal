@@ -91,17 +91,20 @@ class Game:
         self.all_pos_values = self.column_1 + self.column_2 + self.column_3 + \
                               self.column_4 + self.column_5 + self.column_6 + self.column_7
 
+        self.columns = [self.column_1, self.column_2, self.column_3, self.column_4, self.column_5,
+                        self.column_6, self.column_7]
+        self.rows = [self.row_1, self.row_2, self.row_3, self.row_4, self.row_5, self.row_6]
+
+        # coords to pos value
         self.positions_dict = {}
 
         for pos, pos_value in zip(self.positions, self.all_pos_values):
             self.positions_dict[pos] = pos_value
 
+        # pos value to coords
         self.invert_positions_dict = {pos_value: pos for pos, pos_value in self.positions_dict.items()}
 
         self.left_diagonal_1 = [self.D6, self.E5, self.F4, self.G3]
-        print(self.positions_dict)
-        print(self.invert_positions_dict)
-        print(self.invert_positions_dict[320])
 
     def init_Game(self):
         """
@@ -123,6 +126,11 @@ class Game:
                 elif input_ in self.positions:
                     if self.is_valid_input(input_):
                         self.update_board(self.positions_dict[input_], "O")
+                        if self.check_all_connect_four_column():
+                            print(self.board)
+                            print("Player 1 won")
+                            playing = False
+                            break
                         player1_turn = False
                         player2_turn = True
                     else:
@@ -136,6 +144,10 @@ class Game:
                 elif input_ in self.positions:
                     if self.is_valid_input(input_):
                         self.update_board(self.positions_dict[input_], "X")
+                        if self.check_all_connect_four_column():
+                            print(self.board)
+                            print("Player 2 won")
+                            playing = False
                         player1_turn = True
                         player2_turn = False
                     else:
@@ -366,3 +378,39 @@ class Game:
         updated_board = "".join(self.chars)
         self.board = updated_board
         return self.board
+
+    def check_individual_connect_four_column(self, column):
+
+        connect_four = False
+        string_values = []
+
+        for pos_value in column:
+            string_values.append(self.board[pos_value])
+
+        if string_values.count("O") == 4:
+            new_string_values = string_values[
+                                string_values.index("O"):len(string_values) - string_values[::-1].index("O")]
+            if len(new_string_values) == 4:
+                connect_four = True
+
+        if string_values.count("X") == 4:
+            new_string_values = string_values[
+                                string_values.index("X"):len(string_values) - string_values[::-1].index("X")]
+            if len(new_string_values) == 4:
+                connect_four = True
+
+        return connect_four
+
+    def check_all_connect_four_column(self):
+        connect_four = False
+
+        if self.check_individual_connect_four_column(self.column_1) or \
+                self.check_individual_connect_four_column(self.column_2) or \
+                self.check_individual_connect_four_column(self.column_3) or \
+                self.check_individual_connect_four_column(self.column_4) or \
+                self.check_individual_connect_four_column(self.column_5) or \
+                self.check_individual_connect_four_column(self.column_6) or \
+                self.check_individual_connect_four_column(self.column_7):
+            connect_four = True
+
+        return connect_four
