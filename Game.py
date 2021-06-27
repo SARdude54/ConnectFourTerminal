@@ -126,7 +126,7 @@ class Game:
                 elif input_ in self.positions:
                     if self.is_valid_input(input_):
                         self.update_board(self.positions_dict[input_], "O")
-                        if self.check_all_connect_four_column():
+                        if self.check_all_connect_four_lists():
                             print(self.board)
                             print("Player 1 won")
                             playing = False
@@ -144,7 +144,7 @@ class Game:
                 elif input_ in self.positions:
                     if self.is_valid_input(input_):
                         self.update_board(self.positions_dict[input_], "X")
-                        if self.check_all_connect_four_column():
+                        if self.check_all_connect_four_lists():
                             print(self.board)
                             print("Player 2 won")
                             playing = False
@@ -379,7 +379,7 @@ class Game:
         self.board = updated_board
         return self.board
 
-    def check_individual_connect_four_column(self, column):
+    def check_individual_connect_four_list(self, column):
 
         connect_four = False
         string_values = []
@@ -401,16 +401,23 @@ class Game:
 
         return connect_four
 
-    def check_all_connect_four_column(self):
+    def check_all_connect_four_lists(self):
         connect_four = False
 
-        if self.check_individual_connect_four_column(self.column_1) or \
-                self.check_individual_connect_four_column(self.column_2) or \
-                self.check_individual_connect_four_column(self.column_3) or \
-                self.check_individual_connect_four_column(self.column_4) or \
-                self.check_individual_connect_four_column(self.column_5) or \
-                self.check_individual_connect_four_column(self.column_6) or \
-                self.check_individual_connect_four_column(self.column_7):
+        if self.check_individual_connect_four_list(self.column_1) or \
+                self.check_individual_connect_four_list(self.column_2) or \
+                self.check_individual_connect_four_list(self.column_3) or \
+                self.check_individual_connect_four_list(self.column_4) or \
+                self.check_individual_connect_four_list(self.column_5) or \
+                self.check_individual_connect_four_list(self.column_6) or \
+                self.check_individual_connect_four_list(self.column_7) or \
+                self.check_individual_connect_four_list(self.row_1) or \
+                self.check_individual_connect_four_list(self.row_2) or \
+                self.check_individual_connect_four_list(self.row_3) or \
+                self.check_individual_connect_four_list(self.row_4) or \
+                self.check_individual_connect_four_list(self.row_5) or \
+                self.check_individual_connect_four_list(self.row_6):
             connect_four = True
 
         return connect_four
+
