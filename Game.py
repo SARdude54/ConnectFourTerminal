@@ -1,7 +1,9 @@
 class Game:
     def __init__(self):
         self.instructions = "Enter the coordinate you want to place. \n For example: \n '> D6' \n" \
-                            "Type 'View' to list available positions to place"
+                            "Type 'View' to view available positions to place \n" \
+                            "Type 'End' to the game \n" \
+                            "Type 'Restart' to restart the game"
         self.chars = []
         self.board = """
         A|    B|    C|    D|    E|    F|    G|
@@ -88,6 +90,21 @@ class Game:
         self.column_6 = [self.F1, self.F2, self.F3, self.F4, self.F5, self.F6]
         self.column_7 = [self.G1, self.G2, self.G3, self.G4, self.G5, self.G6]
 
+        #Up to down
+        self.left_diagonal_1 = [self.A3, self.B4, self.C5, self.D6]
+        self.left_diagonal_2 = [self.A2, self.B3, self.C4, self.D5, self.E6]
+        self.left_diagonal_3 = [self.A1, self.B2, self.C3, self.D4, self.E5, self.F6]
+        self.left_diagonal_4 = [self.B1, self.C2, self.D3, self.E4, self.F5, self.G6]
+        self.left_diagonal_5 = [self.C1, self.D2, self.E3, self.F4, self.G5]
+        self.left_diagonal_6 = [self.D1, self.E2, self.F3, self.G4]
+
+        self.right_diagonal_1 = [self.G3, self.F4, self.E5, self.D6]
+        self.right_diagonal_2 = [self.G2, self.F3, self.E4, self.D5, self.C6]
+        self.right_diagonal_3 = [self.G1, self.F2, self.E3, self.D4, self.C5, self.B6]
+        self.right_diagonal_4 = [self.F1, self.E2, self.D3, self.C4, self.B5, self.A6]
+        self.right_diagonal_5 = [self.E1, self.D2, self.C3, self.B4, self.A5]
+        self.right_diagonal_6 = [self.D1, self.C2, self.B3, self.A4]
+
         self.all_pos_values = self.column_1 + self.column_2 + self.column_3 + \
                               self.column_4 + self.column_5 + self.column_6 + self.column_7
 
@@ -103,8 +120,6 @@ class Game:
 
         # pos value to coords
         self.invert_positions_dict = {pos_value: pos for pos, pos_value in self.positions_dict.items()}
-
-        self.left_diagonal_1 = [self.D6, self.E5, self.F4, self.G3]
 
     def init_Game(self):
         """
@@ -123,6 +138,23 @@ class Game:
 
                 if input_.lower() == "View".lower():
                     self.check_available_positions()
+
+                elif input_.lower() == "End".lower():
+                    playing = False
+                    break
+
+                elif input_.lower() == "Restart".lower():
+                    self.board = self.board = """
+        A|    B|    C|    D|    E|    F|    G|
+===============================================
+1 ||_____|_____|_____|_____|_____|_____|_____|
+2 ||_____|_____|_____|_____|_____|_____|_____|
+3 ||_____|_____|_____|_____|_____|_____|_____|
+4 ||_____|_____|_____|_____|_____|_____|_____|
+5 ||_____|_____|_____|_____|_____|_____|_____|
+6 ||_____|_____|_____|_____|_____|_____|_____|
+"""
+
                 elif input_ in self.positions:
                     if self.is_valid_input(input_):
                         self.update_board(self.positions_dict[input_], "O")
@@ -141,6 +173,22 @@ class Game:
                 input_ = input(self.board + "\n Player 2 \n >")
                 if input_.lower() == "View".lower():
                     self.check_available_positions()
+
+                elif input_.lower() == "End".lower():
+                    playing = False
+                    break
+
+                elif input_.lower() == "Restart".lower():
+                    self.board = self.board = """
+        A|    B|    C|    D|    E|    F|    G|
+===============================================
+1 ||_____|_____|_____|_____|_____|_____|_____|
+2 ||_____|_____|_____|_____|_____|_____|_____|
+3 ||_____|_____|_____|_____|_____|_____|_____|
+4 ||_____|_____|_____|_____|_____|_____|_____|
+5 ||_____|_____|_____|_____|_____|_____|_____|
+6 ||_____|_____|_____|_____|_____|_____|_____|
+"""
                 elif input_ in self.positions:
                     if self.is_valid_input(input_):
                         self.update_board(self.positions_dict[input_], "X")
@@ -416,7 +464,19 @@ class Game:
                 self.check_individual_connect_four_list(self.row_3) or \
                 self.check_individual_connect_four_list(self.row_4) or \
                 self.check_individual_connect_four_list(self.row_5) or \
-                self.check_individual_connect_four_list(self.row_6):
+                self.check_individual_connect_four_list(self.row_6) or \
+                self.check_individual_connect_four_list(self.left_diagonal_1) or \
+                self.check_individual_connect_four_list(self.left_diagonal_2) or \
+                self.check_individual_connect_four_list(self.left_diagonal_3) or \
+                self.check_individual_connect_four_list(self.left_diagonal_4) or \
+                self.check_individual_connect_four_list(self.left_diagonal_5) or \
+                self.check_individual_connect_four_list(self.left_diagonal_6) or \
+                self.check_individual_connect_four_list(self.right_diagonal_1) or \
+                self.check_individual_connect_four_list(self.right_diagonal_2) or \
+                self.check_individual_connect_four_list(self.right_diagonal_3) or \
+                self.check_individual_connect_four_list(self.right_diagonal_4) or \
+                self.check_individual_connect_four_list(self.right_diagonal_5) or \
+                self.check_individual_connect_four_list(self.right_diagonal_6):
             connect_four = True
 
         return connect_four

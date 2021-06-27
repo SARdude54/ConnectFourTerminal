@@ -1,7 +1,7 @@
 from Game import Game
 
 print("Welcome to Connect Four.")
-print('Type "Start" to being. Type "Exit" to exit')
+print('Type "Start" to begin. Type "Exit" to exit')
 isResponding = True
 
 while isResponding:
