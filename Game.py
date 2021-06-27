@@ -162,6 +162,9 @@ class Game:
                             print(self.board)
                             print("Player 1 won")
                             playing = False
+                            finish = input("Type 'exit' to exit game \n")
+                            if finish.lower() == "Exit".lower():
+                                playing = False
                             break
                         player1_turn = False
                         player2_turn = True
@@ -195,7 +198,9 @@ class Game:
                         if self.check_all_connect_four_lists():
                             print(self.board)
                             print("Player 2 won")
-                            playing = False
+                            finish = input("Type 'exit' to exit game")
+                            if finish.lower() == "Exit".lower():
+                                playing = False
                         player1_turn = True
                         player2_turn = False
                     else:
