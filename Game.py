@@ -432,12 +432,18 @@ class Game:
         self.board = updated_board
         return self.board
 
-    def check_individual_connect_four_list(self, column):
+    def check_individual_connect_four_list(self, list):
+
+        """
+        Checks connect 4 for individual list. (row, columns, and diagonals)
+        :param list: list
+        :return: bool
+        """
 
         connect_four = False
         string_values = []
 
-        for pos_value in column:
+        for pos_value in list:
             string_values.append(self.board[pos_value])
 
         if string_values.count("O") == 4:
@@ -455,6 +461,10 @@ class Game:
         return connect_four
 
     def check_all_connect_four_lists(self):
+        """
+        calls check_individual_connect_four_list method for each column, list, and diagonal list
+        :return: bool
+        """
         connect_four = False
 
         if self.check_individual_connect_four_list(self.column_1) or \
