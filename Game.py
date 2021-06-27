@@ -179,7 +179,6 @@ class Game:
                 else:
                     print("Invalid input")
 
-                print(self.available_positions)
                 if self.is_tied():
                     exit = input("Tied. Type 'exit' to exit game")
                     if exit.lower() == "exit".lower():
